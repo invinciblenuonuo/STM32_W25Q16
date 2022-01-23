@@ -35,6 +35,7 @@ led\freertos.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 led\freertos.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 led\freertos.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 led\freertos.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+led\freertos.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 led\freertos.o: ..\Application\led.h
 led\freertos.o: ../Core/Inc/main.h
 led\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
@@ -43,6 +44,8 @@ led\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 led\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 led\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 led\freertos.o: ..\Application\st7735s.h
+led\freertos.o: ..\Application\src\w25q16.h
+led\freertos.o: ../Core/Inc/spi.h
 led\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 led\freertos.o: ..\Application\src\LCD_task.h
 led\freertos.o: ..\Application\button.h

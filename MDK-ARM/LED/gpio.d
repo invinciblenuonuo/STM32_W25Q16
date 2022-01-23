@@ -27,6 +27,7 @@ led\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 led\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 led\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 led\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+led\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 led\gpio.o: ..\Application\led.h
 led\gpio.o: ../Core/Inc/main.h
 led\gpio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
@@ -44,3 +45,5 @@ led\gpio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 led\gpio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 led\gpio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 led\gpio.o: ..\Application\st7735s.h
+led\gpio.o: ..\Application\src\w25q16.h
+led\gpio.o: ../Core/Inc/spi.h

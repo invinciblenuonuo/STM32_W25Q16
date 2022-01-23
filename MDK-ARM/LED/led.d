@@ -27,8 +27,12 @@ led\led.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 led\led.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 led\led.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 led\led.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+led\led.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 led\led.o: ..\Application\led.h
 led\led.o: ..\Application\st7735s.h
+led\led.o: ..\Application\src\w25q16.h
+led\led.o: ../Core/Inc/spi.h
+led\led.o: ../Core/Inc/main.h
 led\led.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 led\led.o: ../Core/Inc/FreeRTOSConfig.h
 led\led.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h

@@ -4,6 +4,7 @@
 "led\freertos.o"
 "led\dma.o"
 "led\spi.o"
+"led\usart.o"
 "led\stm32f1xx_it.o"
 "led\stm32f1xx_hal_msp.o"
 "led\stm32f1xx_hal_gpio_ex.o"
@@ -20,6 +21,7 @@
 "led\stm32f1xx_hal_spi.o"
 "led\stm32f1xx_hal_tim.o"
 "led\stm32f1xx_hal_tim_ex.o"
+"led\stm32f1xx_hal_uart.o"
 "led\startup_stm32f10x_hd.o"
 "led\system_stm32f1xx.o"
 "led\croutine.o"
@@ -36,7 +38,8 @@
 "led\led.o"
 "led\st7735s.o"
 "led\lcd_task.o"
---strict --scatter "LED\LED.sct"
+"led\w25q16.o"
+--library_type=microlib --strict --scatter "LED\LED.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "./LED/\LED.map" -o LED\LED.axf

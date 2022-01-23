@@ -33,6 +33,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #include "led.h"
 #include "st7735s.h"
+#include "w25q16.h"
 
 /* USER CODE END Includes */
 

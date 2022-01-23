@@ -27,6 +27,7 @@ led\dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 led\dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 led\dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 led\dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+led\dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 led\dma.o: ..\Application\led.h
 led\dma.o: ../Core/Inc/main.h
 led\dma.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
@@ -44,3 +45,5 @@ led\dma.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 led\dma.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 led\dma.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 led\dma.o: ..\Application\st7735s.h
+led\dma.o: ..\Application\src\w25q16.h
+led\dma.o: ../Core/Inc/spi.h

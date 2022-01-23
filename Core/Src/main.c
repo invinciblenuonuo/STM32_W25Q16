@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "dma.h"
 #include "spi.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -58,6 +59,10 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int i;
+u8 byte_test = 0;
+u8 Char_Send[4] = {0x01,0x02,0x03,0x03};
+u8 Char_Receive[4] = {0x08,0x08,0x08,0x08};
+
 /* USER CODE END 0 */
 
 /**
@@ -90,15 +95,50 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_DMA_Init();
+  MX_SPI2_Init();
+  MX_USART1_UART_Init();
+	
   /* USER CODE BEGIN 2 */
-		lcd_init();
+  		HAL_Delay(500);
+			W25X_BlockErase(0x000000);
+			
+			printf("%c",Char_Receive[0]);
+			printf("%c",Char_Receive[1]);
+			printf("%c",Char_Receive[2]);
+			printf("%c",Char_Receive[3]);		
+			
+  		HAL_Delay(500);		
+			
+			printf("%c",Char_Send[0]);
+			printf("%c",Char_Send[1]);
+			printf("%c",Char_Send[2]);
+			printf("%c",Char_Send[3]);		
+			
+  		HAL_Delay(500);		
+
+			W25X_Flash_Write_Page( Char_Send ,0x000000 , 4 );
+			SPI_Flash_Read(Char_Receive ,0x000000 ,4);  
+			
+			printf("%c",Char_Receive[0]);
+			printf("%c",Char_Receive[1]);
+			printf("%c",Char_Receive[2]);
+			printf("%c",Char_Receive[3]);
+			
+			printf("%c",Char_Send[0]);
+			printf("%c",Char_Send[1]);
+			printf("%c",Char_Send[2]);
+			printf("%c",Char_Send[3]);		
+
+//			printf("%s",Char_Send);
+//  		HAL_Delay(500);			
+			
 		//lcd_color_fill_int(20,20,23,23,0xffff);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
-  /* Start scheduler */
-  osKernelStart();
+//  MX_FREERTOS_Init();
+//  /* Start scheduler */
+//  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -106,7 +146,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
 
   }

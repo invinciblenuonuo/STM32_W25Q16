@@ -116,40 +116,44 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of LED */
-  osThreadDef(LED, LED_FLASH_TASK, osPriorityNormal, 0, 16);
+  osThreadDef(LED, LED_FLASH, osPriorityNormal, 0, 128);
   LEDHandle = osThreadCreate(osThread(LED), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-	 osThreadDef( LCD_FLUSH ,
-								LCD_FLUSH_Task, 
-	              +1, 
-								0, 
-	              128);
-  LCD_FLUSHHandle = osThreadCreate(osThread(LCD_FLUSH), NULL);
 	
-//	xTaskCreate( Button_detect_TASK , "handle_key",128 ,NULL, 2 ,NULL);
-	 osThreadDef( Button_Task ,
-								Button_detect_TASK, 
-	              osPriorityAboveNormal, 
-								0, 
-	              32);
-  Button_TaskHHandle = osThreadCreate(osThread(Button_Task), NULL);
 
-	 osThreadDef( Word_Task ,
-								trends_word_task, 
-	              0, 
-								0, 
-	              32);
-  Word_TaskHHandle = osThreadCreate(osThread(Word_Task), NULL);
+//	 osThreadDef( LCD_FLUSH ,
+//								LCD_FLUSH_Task, 
+//	              +1, 
+//								0, 
+//	              128);
+//  LCD_FLUSHHandle = osThreadCreate(osThread(LCD_FLUSH), NULL);
+//	
+////	xTaskCreate( Button_detect_TASK , "handle_key",128 ,NULL, 2 ,NULL);
+//	 osThreadDef( Button_Task ,
+//								Button_detect_TASK, 
+//	              osPriorityAboveNormal, 
+//								0, 
+//	              32);
+//  Button_TaskHHandle = osThreadCreate(osThread(Button_Task), NULL);
+
+//	 osThreadDef( Word_Task ,
+//								trends_word_task, 
+//	              0, 
+//								0, 
+//	              32);
+//  Word_TaskHHandle = osThreadCreate(osThread(Word_Task), NULL);
+//	
+//	 osThreadDef( Gemetry_Task ,
+//								trends_gemetry_task, 
+//	              osPriorityNormal, 
+//								0, 
+//	              32);
+//  Gemetry_TaskHandle = osThreadCreate(osThread(Gemetry_Task), NULL);
 	
-	 osThreadDef( Gemetry_Task ,
-								trends_gemetry_task, 
-	              osPriorityNormal, 
-								0, 
-	              32);
-  Gemetry_TaskHandle = osThreadCreate(osThread(Gemetry_Task), NULL);
-	
+
+
 
 //	 osThreadDef(LVGL_FLUSH, LVGL_Fresh_Task, osPriorityNormal, 0, 128);
 //	 LVGL_FLUSHHandle = osThreadCreate(osThread(LVGL_FLUSH), NULL);

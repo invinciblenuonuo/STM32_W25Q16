@@ -27,6 +27,7 @@ led\button.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 led\button.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 led\button.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 led\button.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+led\button.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 led\button.o: ..\Application\led.h
 led\button.o: ../Core/Inc/main.h
 led\button.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
@@ -44,4 +45,6 @@ led\button.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 led\button.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 led\button.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 led\button.o: ..\Application\st7735s.h
+led\button.o: ..\Application\src\w25q16.h
+led\button.o: ../Core/Inc/spi.h
 led\button.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
