@@ -1,0 +1,3 @@
+# STM32_W25Q16
+* 目的是学习使用stm32读写W25Q16_FLASH模块
+* 使用HAL库 USB MSC访问外部W25Q16
