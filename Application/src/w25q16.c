@@ -81,7 +81,32 @@ void W25X_Flash_Write_Page(u8* pbuf,u32 WriteAddr,u16 Len)
 	
 
 }
-
+//无检验写SPI FLASH
+//必须确保所写的地址范围内的数据全部为0XFF,否则在非0XFF处写入的数据将失败!
+//具有自动换页功能
+//在指定地址开始写入指定长度的数据
+//pbuf:数据存储区
+//WriteAddr:开始写入的地址(24bit)
+//Len:要写入的字节数(最大65535)
+void SPI_Flash_Write_NoCheck(u8 * pbuf,u32 WriteAddr,u16 Len)
+{
+    u16 PageLen;                  // 页内写入字节长度
+    PageLen=256 - WriteAddr%256;    // 单页剩余的字节数 （单页剩余空间）
+    if(Len<=PageLen) PageLen=Len; // 不大于256 个字节
+    while(1)
+    {
+        W25X_Flash_Write_Page(pbuf,WriteAddr,PageLen);
+        if(PageLen==Len)break;   // 写入结束了
+        else
+        {
+            pbuf+=PageLen;
+            WriteAddr+=PageLen;
+            Len-=PageLen;              //  减去已经写入了的字节数
+            if(Len>256)PageLen=256;   // 一次可以写入256 个字节
+            else PageLen=Len;          // 不够256 个字节了
+        }
+    }
+}
 //读取SPI FLASH  
 //在指定地址开始读取指定长度的数据
 //pbuf:数据存储区
@@ -104,6 +129,7 @@ void SPI_Flash_Read(u8 * pbuf,u32 ReadAddr,u16 Len)
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 
 }  
+
 
 
 void W25X_BlockErase(unsigned long Addr24)  //擦除资料图示的64KB空间
@@ -130,5 +156,78 @@ void W25X_BlockErase(unsigned long Addr24)  //擦除资料图示的64KB空间
     while(W25Q16_ReadStatus()&0x01);   // 等待擦除完成
 
 }
+
+
+void W25Q16_WRITE(u8* pData, u32 WriteAddr, u32 Size)
+{
+		uint8_t cmd[4];
+    uint32_t end_addr, current_size, current_addr;
+    //uint32_t tickstart = HAL_GetTick();
+	
+	  current_addr = 0;
+	  while(current_addr <= WriteAddr)
+		{
+				current_addr += 0x100;
+		}
+		current_size = current_addr - WriteAddr; //计算出当前页还能写的空间
+		
+		if(current_size > Size)
+		{
+			current_size = Size;
+		}
+
+	  current_addr = WriteAddr;
+		end_addr = WriteAddr + Size;
+		
+		do
+		{
+				cmd[0] = 0x02;
+				cmd[1] = (uint8_t)(current_addr >> 16);
+				cmd[2] = (uint8_t)(current_addr >> 8);
+				cmd[3] = (uint8_t)current_addr ;
+				
+				while(W25Q16_ReadStatus()&0x01);    //判断是否忙
+				WriteEnable();                  //SET WEL 
+			
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+				HAL_SPI_Transmit(&hspi2 ,cmd , 4 , 5000);
+				HAL_SPI_Transmit(&hspi2 ,pData , current_size , 5000);
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+			
+				current_addr += current_size;
+				pData += current_size;
+				current_size = ((current_addr + 0x100) > end_addr) ? (end_addr - current_addr) : 0x100;
+		}
+		while(current_addr < end_addr);
+		
+		
+
+
+}
+
+
+void BSP_W25Qx_Erase_Block(uint32_t Address)
+{
+	u8 cmd[4];
+	cmd[0] = W25X_S_Erase;
+	cmd[1] = (uint8_t)(Address >> 16);
+	cmd[2] = (uint8_t)(Address >> 8);
+	cmd[3] = (uint8_t)Address ;
+	WriteEnable();                  //SET WEL 
+	
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi2, cmd, 4, 5000);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+		
+}
+
+
+
+
+
+
+
+
+
 
 

@@ -20,8 +20,10 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "dma.h"
+#include "fatfs.h"
 #include "spi.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -97,27 +99,45 @@ int main(void)
   MX_DMA_Init();
   MX_SPI2_Init();
   MX_USART1_UART_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-	
-			HAL_Delay(500);
-			printf("%c",Char_Receive[0]);
-			printf("%c",Char_Receive[1]);
-			printf("%c",Char_Receive[2]);
-			printf("%c",Char_Receive[3]);
+	MX_USB_DEVICE_Init();
+	HAL_Delay(500);
+	{
+	//W25Q16_EMPTY();
+//			HAL_Delay(500);
+//			printf("%c",Char_Receive[0]);
+//			printf("%c",Char_Receive[1]);
+//			printf("%c",Char_Receive[2]);
+//			printf("%c",Char_Receive[3]);
 
-			SPI_Flash_Read(Char_Receive ,0x000000 ,4);  
+//			SPI_Flash_Read(Char_Receive ,0x000000 ,4);  
+//			
+//			printf("%c",Char_Receive[0]);
+//			printf("%c",Char_Receive[1]);
+//			printf("%c",Char_Receive[2]);
+//			printf("%c",Char_Receive[3]);
+	}
 			
-			printf("%c",Char_Receive[0]);
-			printf("%c",Char_Receive[1]);
-			printf("%c",Char_Receive[2]);
-			printf("%c",Char_Receive[3]);
-			
-  /* USER CODE END 2 */
+  
+	
+	
+	//BSP_W25Qx_Erase_Block(0x000000);
+
+	//W25Q16_WRITE(Char_Send,0x000000,4);
+	//W25X_Flash_Write_Page(Char_Send , 0x000000 , 4);
+//	SPI_Flash_Read(Char_Receive ,0x000000 ,4); 
+//			printf("%c",Char_Receive[0]);
+//			printf("%c",Char_Receive[1]);
+//			printf("%c",Char_Receive[2]);
+//			printf("%c",Char_Receive[3]);
+  
+	/* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-//  MX_FREERTOS_Init();
-//  /* Start scheduler */
-//  osKernelStart();
+  MX_FREERTOS_Init();
+  /* Start scheduler */
+  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -140,6 +160,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -150,7 +171,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -164,7 +185,13 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
