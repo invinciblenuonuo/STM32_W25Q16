@@ -97,26 +97,14 @@ int main(void)
   MX_DMA_Init();
   MX_SPI2_Init();
   MX_USART1_UART_Init();
-	
   /* USER CODE BEGIN 2 */
-  		HAL_Delay(500);
-			W25X_BlockErase(0x000000);
-			
+	
+			HAL_Delay(500);
 			printf("%c",Char_Receive[0]);
 			printf("%c",Char_Receive[1]);
 			printf("%c",Char_Receive[2]);
-			printf("%c",Char_Receive[3]);		
-			
-  		HAL_Delay(500);		
-			
-			printf("%c",Char_Send[0]);
-			printf("%c",Char_Send[1]);
-			printf("%c",Char_Send[2]);
-			printf("%c",Char_Send[3]);		
-			
-  		HAL_Delay(500);		
+			printf("%c",Char_Receive[3]);
 
-			W25X_Flash_Write_Page( Char_Send ,0x000000 , 4 );
 			SPI_Flash_Read(Char_Receive ,0x000000 ,4);  
 			
 			printf("%c",Char_Receive[0]);
@@ -124,15 +112,6 @@ int main(void)
 			printf("%c",Char_Receive[2]);
 			printf("%c",Char_Receive[3]);
 			
-			printf("%c",Char_Send[0]);
-			printf("%c",Char_Send[1]);
-			printf("%c",Char_Send[2]);
-			printf("%c",Char_Send[3]);		
-
-//			printf("%s",Char_Send);
-//  		HAL_Delay(500);			
-			
-		//lcd_color_fill_int(20,20,23,23,0xffff);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -146,6 +125,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
 
   }
